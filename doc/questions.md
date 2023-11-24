@@ -1,3 +1,3 @@
 # Questions
 
-Behgöver algoritmerna vara direkt kopierade från boken?
+hur man fixar stack overflow eller om man ska räkna med det????

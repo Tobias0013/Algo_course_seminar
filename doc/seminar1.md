@@ -19,10 +19,10 @@ Note! If is an iterative method – you are not allowed to use recursion!!!
 
 ### requirements for code
 
-- [ ] insert algo from book quickSort Recursive
-- [ ] insert algo from book quickSort Iterative
-- [ ] insert algo from book insertionSort Recursive
-- [ ] insert algo from book insertionSort Iterative
+- [x] insert algo from book quickSort Recursive
+- [x] insert algo from book quickSort Iterative
+- [x] insert algo from book insertionSort Recursive
+- [x] insert algo from book insertionSort Iterative
 - [ ] code method to import rnd nmr from seminar file
 - [ ] code so that the prog messure time to execute
 - [ ] 
