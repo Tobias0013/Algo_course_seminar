@@ -47,7 +47,6 @@ public class SortUtil {
             stack.push(0);
             stack.push(arr.length - 1);
 
-
             while (!stack.isEmpty()) {
                 int right = stack.pop();
                 int left = stack.pop();
