@@ -1,4 +1,4 @@
-package test;
+package seminar1.test;
 import static seminar1.util.SortUtil.*;
 
 import java.util.Arrays;

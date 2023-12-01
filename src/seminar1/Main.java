@@ -25,7 +25,7 @@ public class Main {
             System.out.println("6. Run Quick Sort Recursive pivot arr[0]");
             System.out.println("7. Run Quick Sort Iterative pivot arr[0]");
             System.out.println("8. Run BinarySearch");
-            System.out.println("9. Run Automated Test (test everything");
+            System.out.println("9. Run Automated Test (seminar1.test everything");
 
             input = sc.next();
 
