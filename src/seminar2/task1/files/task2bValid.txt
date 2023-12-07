@@ -1,0 +1,5 @@
+if(a == b) {a++;}
+if(a < (b*c)) {t = 5;}
+int []b = new int[5];
+[](){}
+int a = 5; // init a to 5
