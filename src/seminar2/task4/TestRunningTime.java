@@ -6,12 +6,13 @@ public class TestRunningTime {
 
     public static void main(String[] args) {
         System.out.println("Start automatedAnalazys1");
+        System.out.println();
         automatedAnalazys();
         System.out.println("End automatedAnalazys1");
         System.out.println("Start automatedAnalazys2");
+        System.out.println();
         automatedAnalazys2();
         System.out.println("End automatedAnalazys1");
-
     }
     
     private static void automatedAnalazys(){
