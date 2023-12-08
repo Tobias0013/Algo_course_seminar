@@ -20,7 +20,9 @@ public class AnalyzeThread implements Runnable{
 
     @Override
     public void run() {
+        System.out.println("Thread Start mode=" + mode + " , n=" + n);
         analyze(mode, n, m, times);
+        System.out.println("Thread End mode=" + mode + " , n=" + n);
     }
 
     /**
