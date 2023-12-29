@@ -13,6 +13,10 @@ public class BinarySearchTree <AnyType extends Comparable<? super AnyType>>{
         this.root = root;
     }
 
+    public BinaryNode<AnyType> getRoot() {
+        return root;
+    }
+
     public void makeEmpty(){
         root = null;
     }
@@ -47,18 +51,7 @@ public class BinarySearchTree <AnyType extends Comparable<? super AnyType>>{
         root = remove(x, root);
     }
 
-    public void printTree() {
-        if (isEmpty()){
-            System.out.println("tree is empty");
-        }
-        else {
-            printTree(root);
-        }
-    }
-
     private boolean contains(AnyType x, BinaryNode<AnyType> t) {
-        /* Figure 4.18 */
-
         if (t == null)
             return false;
 
@@ -119,10 +112,10 @@ public class BinarySearchTree <AnyType extends Comparable<? super AnyType>>{
 
 
         if (compareResult < 0){
-            return remove(x, t.getLeft());
+            t.setLeft(remove(x, t.getLeft()));
         }
         else if (compareResult > 0) {
-            return remove(x, t.getRight());
+            t.setRight(remove(x, t.getRight()));
         }
         else if (t.getRight() != null && t.getLeft() != null) { //two children
             t.setElement(findMin(t.getRight()).getElement());
@@ -144,6 +137,33 @@ public class BinarySearchTree <AnyType extends Comparable<? super AnyType>>{
             printTree(t.getLeft());
             System.out.println(t.getElement());
             printTree(t.getRight());
+        }
+    }
+
+    public void inorder(BinaryNode<AnyType> node){
+        if (node != null){
+            inorder(node.getLeft());
+            printNode(node);
+            inorder(node.getRight());
+        }
+    }
+
+    private void printNode(BinaryNode<AnyType> node) {
+        if (node.getElement() == root.getElement()) {
+            System.out.print("Root Node: " + node.getElement());
+        } else {
+            System.out.print("Current Node: " + node.getElement());
+        }
+
+        printNodeInformation(node.getLeft(), ", Left Child: ");
+        printNodeInformation(node.getRight(), ", Right Child: ");
+
+        System.out.println();
+    }
+
+    private void printNodeInformation(BinaryNode<AnyType> node, String string) {
+        if (node != null) {
+            System.out.print(string + node.getElement());
         }
     }
 }

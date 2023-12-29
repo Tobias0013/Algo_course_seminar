@@ -12,8 +12,7 @@ public class Main {
         //task1a();
         //task1b();
         //task1c();
-        task1d();
-        //task1dExtra();
+        //task1d();
     }
 
     public static void task1a(){
@@ -110,54 +109,6 @@ public class Main {
         }
 
 
-    }
-
-    public static void task1dExtra(){ // TODO: 2023-12-26 ta bort eller gör ordentligt
-        System.out.println("----- Extra -----");
-
-        String[] names = {"Algo1", "Algo2"};
-        int times = 20;
-        int[] sizes = {100000, 20000, 300000, 400000, 500000, 600000, 70000, 800000, 900000, 1000000};
-        double[][] durations = new double[2][sizes.length];
-
-        Integer[] arr = readIntegers("src/seminar1/files/random_numbers.txt", 1000000);
-
-        for (int i = 0; i < durations.length; i++) {
-            System.out.println("i: " + i);
-            for (int j = 0; j < sizes.length; j++) {
-                System.out.println("j: " + j);
-                for (int k = 0; k < times; k++) {
-                    System.out.println("k: " + k);
-
-                    long startTime = System.nanoTime();
-
-                    runTask1Algo(i, cropArray(arr, sizes[j]));
-
-                    long endTime = System.nanoTime();
-
-                    double duration = (double) (endTime - startTime) / 1000000;  //divide by 1000000 to get milliseconds.
-
-                    durations[i][j] += duration;
-
-                }
-            }
-        }
-
-        for (int i = 0; i < durations.length; i++) {
-            for (int j = 0; j < sizes.length; j++) {
-                durations[i][j] /= times;
-            }
-        }
-
-        //print result
-        System.out.printf("%25s |%25s |%25s |%25s |%25s |%25s |%25s |%25s |%25s |%25s |%25s %n", "Algorithm used",
-                "100_000", "200_000", "300_000", "400_000", "500_000", "600_000", "700_000", "800_000", "900_000", "1_000_000");
-        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
-        for (int i = 0; i < durations.length; i++) {
-            System.out.printf("%25s |%25s |%25s |%25s |%25s |%25s |%25s |%25s |%25s |%25s |%25s %n", names[i],
-                    durations[i][0], durations[i][1], durations[i][2], durations[i][3], durations[i][4],
-                    durations[i][5], durations[i][6], durations[i][7], durations[i][8], durations[i][9]);
-        }
     }
 
     private static Integer[] cropArray(Integer[] originalArray, int newSize){

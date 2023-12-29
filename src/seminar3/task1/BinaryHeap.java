@@ -67,13 +67,6 @@ public class BinaryHeap {
         }
         array[hole] = x;
 
-         /*
-        int hole = ++currentSize;
-        for( array[ 0 ] = x; x.compareTo( array[ hole / 2 ] ) < 0; hole /= 2 )
-            array[ hole ] = array[ hole / 2 ];
-        array[ hole ] = x;
-
-          */
     }
 
     public boolean isEmpty() { /* See online code */
@@ -104,6 +97,23 @@ public class BinaryHeap {
         }
 
         array[hole] = tmp;
+    }
+
+    public int deleteMin(){
+        if (isEmpty())
+            System.out.println("Error: heap is empty");
+
+        Integer min = findMin();
+        array[1] = array[currentSize];
+        array[currentSize] = null;
+        percolateDown(1);
+        currentSize--;
+
+        return min;
+    }
+
+    public Integer findMin(){
+        return array[1];
     }
 
     public void printPreOrder(){

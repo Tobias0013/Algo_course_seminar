@@ -12,6 +12,10 @@ public class AVLTree <AnyType extends Comparable<? super AnyType>> {
         this.root = root;
     }
 
+    public AVLNode<AnyType> getRoot() {
+        return root;
+    }
+
     public void makeEmpty(){
         root = null;
     }
@@ -46,18 +50,7 @@ public class AVLTree <AnyType extends Comparable<? super AnyType>> {
         root = remove(x, root);
     }
 
-    public void printTree() {
-        if (isEmpty()){
-            System.out.println("tree is empty");
-        }
-        else {
-            printTree(root);
-        }
-    }
-
     private boolean contains(AnyType x, AVLNode<AnyType> t) {
-        /* Figure 4.18 */
-
         if (t == null)
             return false;
 
@@ -114,19 +107,19 @@ public class AVLTree <AnyType extends Comparable<? super AnyType>> {
             return t;
 
         if (height(t.getLeft()) - height(t.getRight()) > ALLOWED_IMBALANCE){ //left height bigger
-            if (height(t.getLeft().getRight()) > height(t.getLeft().getLeft())){
-                t = doubleWithLeft(t);
+            if (height(t.getLeft().getLeft()) >= height(t.getLeft().getRight())){
+                t = rotateWithLeft(t);
             }
             else {
-                t = rotateWithLeft(t);
+                t = doubleWithLeft(t);
             }
         }
         else if (height(t.getRight()) - height(t.getLeft()) > ALLOWED_IMBALANCE){ //right height bigger
-            if (height(t.getRight().getLeft()) > height(t.getRight().getRight())){
-                t = doubleWithRight(t);
+            if (height(t.getRight().getRight()) >= height(t.getRight().getLeft())){
+                t = rotateWithRight(t);
             }
             else {
-                t = rotateWithRight(t);
+                t = doubleWithRight(t);
             }
         }
 
@@ -138,6 +131,10 @@ public class AVLTree <AnyType extends Comparable<? super AnyType>> {
         AVLNode<AnyType> k2 = k1.getLeft();
         k1.setLeft(k2.getRight());
         k2.setRight(k1);
+
+        k1.setHeight(Math.max(height(k1.getLeft()), height(k1.getRight())) + 1);
+        k2.setHeight(Math.max(height(k2.getLeft()), k1.getHeight()) + 1);
+
         return k2;
     }
 
@@ -145,20 +142,20 @@ public class AVLTree <AnyType extends Comparable<? super AnyType>> {
         AVLNode<AnyType> k2 = k1.getRight();
         k1.setRight(k2.getLeft());
         k2.setLeft(k1);
+
+        k1.setHeight(Math.max(height(k1.getLeft()), height(k1.getRight())) + 1);
+        k2.setHeight(Math.max(height(k1.getRight()), k1.getHeight()) + 1);
+
         return k2;
     }
 
     private AVLNode<AnyType> doubleWithLeft(AVLNode<AnyType> k1){
-        AVLNode<AnyType> k2 = k1.getLeft();
-
-        rotateWithRight(k2);
+        k1.setLeft(rotateWithRight(k1.getLeft()));
         return rotateWithLeft(k1);
     }
 
     private AVLNode<AnyType> doubleWithRight(AVLNode<AnyType> k1){
-        AVLNode<AnyType> k2 = k1.getRight();
-
-        rotateWithLeft(k2);
+        k1.setRight(rotateWithLeft(k1.getRight()));
         return rotateWithRight(k1);
     }
     
@@ -178,10 +175,10 @@ public class AVLTree <AnyType extends Comparable<? super AnyType>> {
 
 
         if (compareResult < 0){
-            return remove(x, t.getLeft());
+            t.setLeft(remove(x, t.getLeft()));
         }
         else if (compareResult > 0) {
-            return remove(x, t.getRight());
+            t.setRight(remove(x, t.getRight()));
         }
         else if (t.getRight() != null && t.getLeft() != null) { //two children
             t.setElement(findMin(t.getRight()).getElement());
@@ -203,6 +200,35 @@ public class AVLTree <AnyType extends Comparable<? super AnyType>> {
             printTree(t.getLeft());
             System.out.println(t.getElement());
             printTree(t.getRight());
+        }
+    }
+
+
+    public void inorder(AVLNode<AnyType> node){
+        if (node != null){
+            inorder(node.getLeft());
+            printNode(node);
+            inorder(node.getRight());
+        }
+    }
+
+    private void printNode(AVLNode<AnyType> node) {
+        if (node.getElement() == getRoot().getElement()) {
+            System.out.print("Root Node: " + node.getElement());
+        } else {
+            System.out.print("Current Node: " + node.getElement());
+        }
+
+        printNodeInformation(node.getLeft(), ", Left Child: ");
+        printNodeInformation(node.getRight(), ", Right Child: ");
+        System.out.print(", Height Property: " + node.getHeight());
+
+        System.out.println();
+    }
+
+    private void printNodeInformation(AVLNode<AnyType> node, String string) {
+        if (node != null) {
+            System.out.print(string + node.getElement());
         }
     }
 
