@@ -55,7 +55,7 @@ public class BalancebleTree {
             }
 
             newNode.setParent(foundNode);
-            rebalaceInsert(newNode);
+            rebalanceInsert(newNode);
         }
         return key;
     }
@@ -207,7 +207,7 @@ public class BalancebleTree {
     }
 
     public void rebalaceAccess(Node node) {};
-    public void rebalaceInsert(Node node) {};
+    public void rebalanceInsert(Node node) {};
     public void rebalanceDelete(Node node) {};
 
     public void inorder(Node node){
@@ -225,10 +225,10 @@ public class BalancebleTree {
             System.out.print("Current Node: " + node.getValue());
         }
 
-        printNodeInformation(node.getParent(), " Parent: ");
-        printNodeInformation(node.getLeft(), " Left Child: ");
-        printNodeInformation(node.getRight(), " Right Child: ");
-        System.out.print(" Height Property: " + node.getHeight());
+        printNodeInformation(node.getParent(), ", Parent: ");
+        printNodeInformation(node.getLeft(), ", Left Child: ");
+        printNodeInformation(node.getRight(), ", Right Child: ");
+        System.out.print(", Height Property: " + node.getHeight());
 
         System.out.println();
     }

@@ -41,22 +41,22 @@ public class RedBlackTree extends BalancebleTree {
         if (isRed(parent)){
             sibling = sibling(parent);
 
-            if (sibling != null || isBlack(sibling)){
+            if (sibling == null || isBlack(sibling)){
                 middle = restructure(node);
                 makeBlack(middle);
                 makeRed(middle.getLeft());
                 makeRed(middle.getRight());
             }
-        }
-        else {
-            makeBlack(parent);
-            makeBlack(sibling);
+            else {
+                makeBlack(parent);
+                makeBlack(sibling);
 
-            grandparent = parent.getParent();
+                grandparent = parent.getParent();
 
-            if (grandparent != getRoot()){
-                makeRed(grandparent);
-                resolveRed(grandparent);
+                if (grandparent != getRoot()){
+                    makeRed(grandparent);
+                    resolveRed(grandparent);
+                }
             }
         }
     }
@@ -76,21 +76,48 @@ public class RedBlackTree extends BalancebleTree {
 
     private void remedyDoubleBlack(Node node){
         Node z = node.getParent();
-        node y = sibling(node);
+        Node y = sibling(node);
 
         if (isBlack(y)){
             if (isRed(node.getLeft()) || isRed(node.getRight())){
-                Node x = (isRed(y.getLeft()) ? y.getLeft : y.getRight){
-                    Node middle = restructure(x);
+                Node x = (isRed(y.getLeft()) ? y.getLeft() : y.getRight());
+                Node middle = restructure(x);
+                setColor(middle, isRed(z));
+                makeBlack(middle.getLeft());
+                makeBlack(middle.getRight());
 
+            }
+            else {
+                makeRed(y);
+                if (isRed(z)){
+                    makeBlack(z);
+                }
+                else {
+                    if (z != getRoot()){
+                        remedyDoubleBlack(z);
+                    }
                 }
             }
         }
+        else {
+            rotate(y);
+            makeBlack(y);
+            makeRed(z);
+            remedyDoubleBlack(node);
+        }
     }
 
+    private Node sibling(Node node){
+        Node parent = node.getParent();
+        if (parent == null){
+            return null;
+        }
 
-
-
-
-
+        if (node == parent.getLeft()){
+            return parent.getRight();
+        }
+        else {
+            return parent.getLeft();
+        }
+    }
 }
